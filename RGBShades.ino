@@ -34,6 +34,7 @@ byte currentBrightness = STARTBRIGHTNESS; // 0-255 will be scaled to 0-MAXBRIGHT
 // Include FastLED library and other useful files
 #include <FastLED.h>
 #include "messages.h"
+#include "graphicsframe.h"
 #include "font.h"
 #include "XYmap.h"
 #include "utils.h"
@@ -69,7 +70,8 @@ functionList effectList[] = {threeSine,
                              scrollTextZero,
                              sideRain, 
                              shadesOutline,
-                             hearts};
+                             hearts,
+                             eyesAnim};
 
 // Timing parameters
 #define cycleTime 15000
