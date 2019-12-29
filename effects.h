@@ -321,6 +321,7 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
   static CRGB currentColor;
   static byte bitBuffer[16] = {0};
   static byte bitBufferPointer = 0;
+  static int charWidth;
 
 
   // startup tasks
@@ -331,6 +332,7 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
     currentCharColumn = 0;
     selectFlashString(message);
     loadCharBuffer(loadStringChar(message, currentMessageChar));
+    charWidth = loadCharWidth(loadStringChar(message, currentMessageChar));
     currentPalette = RainbowColors_p;
     for (byte i = 0; i < kMatrixWidth; i++) bitBuffer[i] = 0;
   }
@@ -338,7 +340,7 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
 
   paletteCycle += 15;
 
-  if (currentCharColumn < 5) { // characters are 5 pixels wide
+  if (currentCharColumn < charWidth) { // character bitfields are `charWidth` pixels wide
     bitBuffer[(bitBufferPointer + kMatrixWidth - 1) % kMatrixWidth] = charBuffer[currentCharColumn]; // character
   } else {
     bitBuffer[(bitBufferPointer + kMatrixWidth - 1) % kMatrixWidth] = 0; // space
@@ -361,7 +363,7 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
   }
 
   currentCharColumn++;
-  if (currentCharColumn > (4 + charSpacing)) {
+  if (currentCharColumn > ((charWidth - 1) + charSpacing)) {
     currentCharColumn = 0;
     currentMessageChar++;
     char nextChar = loadStringChar(message, currentMessageChar);
@@ -370,6 +372,7 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
       nextChar = loadStringChar(message, currentMessageChar);
     }
     loadCharBuffer(nextChar);
+    charWidth = loadCharWidth(nextChar);
   }
 
   bitBufferPointer++;
