@@ -94,8 +94,8 @@ functionList songList[][numEffects] = {
 functionList specialList[][numEffects] = {
   // new years
   {
-    hnyText,
     confetti,
+    hnyText,
     twentyBlink,
     glitter,
     hnyText,
@@ -129,6 +129,7 @@ void loop()
     
     case BTNLONGPRESS: // button was held down for a while
       specialEffect = !specialEffect; // toggle special effect list
+      cycleMillis = currentMillis; 
       currentSong = 0;
       currentEffect = 0;
       confirmBlink(); // one blue blink: auto mode. two red blinks: manual mode.
