@@ -63,21 +63,21 @@ functionList songList[][numEffects] = {
   // money
   {
     diamonds,
+    rider,
     moneyText,
-    slantBars,
-    moneyText,
-    eyesAnim,
-    moneyText
+    plasma,
+    diamonds,
+    slantBars
   },
   
   // love
   {
     hearts,
-    loveText,
     threeSine,
-    hearts,
+    loveText,
     sideRain, 
-    loveText
+    hearts,
+    eyesAnim
   }
 
   //threeSine,
@@ -88,19 +88,18 @@ functionList songList[][numEffects] = {
   //glitter,
   //slantBars,
   //colorFill,
-  //scrollTextZero,
   //shadesOutline
 };
 
-functionList specialList[][6] = {
+functionList specialList[][numEffects] = {
   // new years
   {
+    hnyText,
     confetti,
+    yearText,
     glitter,
-    confetti,
-    glitter,
-    confetti,
-    glitter
+    hnyText,
+    plasma
   }
 };
 

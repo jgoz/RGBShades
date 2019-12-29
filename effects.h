@@ -456,3 +456,11 @@ void moneyText() {
 void loveText() {
   scrollText(1, RAINBOW, 0, CRGB(2,0,0));
 }
+
+void hnyText() {
+  scrollText(2, RAINBOW, 0, CRGB::Black);
+}
+
+void yearText() {
+  scrollText(3, RAINBOW, 0, CRGB::Black);
+}
