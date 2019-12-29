@@ -8,7 +8,7 @@ unsigned long currentMillis; // store current loop's millis value
 unsigned long hueMillis; // store time of last hue change
 
 byte currentEffect = 0; // index to the currently running effect
-boolean autoCycle = true; // flag for automatic effect changes
+boolean autoCycle = false; // flag for automatic effect changes
 
 CRGBPalette16 currentPalette(RainbowColors_p); // global pallete storage
 
