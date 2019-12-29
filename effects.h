@@ -380,7 +380,6 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
 
 }
 
-
 void graphicsFrame(int frame, CRGB fgColor,CRGB bgColor){
   // Buffers for graphics generation
   byte GlassesBits[kMatrixWidth][kMatrixHeight] = {{0}};    // 24 column x 8 row bit arrays (on/off frame)
@@ -427,10 +426,10 @@ void eyesAnim(){
 }
 
 void diamonds(){
-  static byte frameSeq[] = {4,5,6,7,8,9,10,11};
+  static byte frameSeq[] = {4,5,6,7,8,9,10,11,12,13,14,15};
   static byte frameIndex = 0;
   static unsigned long lastFrame = 0;
-  const long frameDelay = 200;
+  const long frameDelay = 100;
   const int maxFrame = sizeof(frameSeq) / sizeof(frameSeq[0]);
 
   // startup tasks
