@@ -56,30 +56,65 @@ void setup() {
 
 }
 
+#define numEffects 6
+
 // list of functions that will be displayed
-functionList effectList[] = {threeSine,
-                             threeDee,
-                             scrollTextOne,
-                             plasma,
-                             confetti,
-                             rider,
-                             scrollTextTwo,
-                             glitter,
-                             slantBars,
-                             colorFill,
-                             scrollTextZero,
-                             sideRain, 
-                             shadesOutline,
-                             hearts,
-                             eyesAnim};
+functionList songList[][numEffects] = {
+  // money
+  {
+    diamonds,
+    moneyText,
+    slantBars,
+    moneyText,
+    eyesAnim,
+    moneyText
+  },
+  
+  // love
+  {
+    hearts,
+    loveText,
+    threeSine,
+    hearts,
+    sideRain, 
+    loveText
+  }
+
+  //threeSine,
+  //threeDee,
+  //plasma,
+  //confetti,
+  //rider,
+  //glitter,
+  //slantBars,
+  //colorFill,
+  //scrollTextZero,
+  //shadesOutline
+};
+
+functionList specialList[][6] = {
+  // new years
+  {
+    confetti,
+    glitter,
+    confetti,
+    glitter,
+    confetti,
+    glitter
+  }
+};
 
 // Timing parameters
-#define cycleTime 15000
+#define cycleTime 10000
 #define hueTime 30
 
 // Runs over and over until power off or reset
 void loop()
 {
+  const int numSongs = specialEffect
+    ? (sizeof(specialList) / sizeof(specialList[0]))
+    : (sizeof(songList) / sizeof(songList[0]));
+
   currentMillis = millis(); // save the current timer value
   updateButtons(); // read, debounce, and process the buttons
   
@@ -88,12 +123,15 @@ void loop()
     
     case BTNRELEASED: // button was pressed and released quickly
       cycleMillis = currentMillis; 
-      if (++currentEffect >= numEffects) currentEffect = 0; // loop to start of effect list
+      if (++currentSong >= numSongs) currentSong = 0; // loop to start of effect list
+      currentEffect = 0;
       effectInit = false; // trigger effect initialization when new effect is selected
     break;
     
     case BTNLONGPRESS: // button was held down for a while
-      autoCycle = !autoCycle; // toggle auto cycle mode
+      specialEffect = !specialEffect; // toggle special effect list
+      currentSong = 0;
+      currentEffect = 0;
       confirmBlink(); // one blue blink: auto mode. two red blinks: manual mode.
     break;
   
@@ -117,7 +155,7 @@ void loop()
   }
   
   // switch to a new effect every cycleTime milliseconds
-  if (currentMillis - cycleMillis > cycleTime && autoCycle == true) {
+  if (currentMillis - cycleMillis > cycleTime) {
     cycleMillis = currentMillis; 
     if (++currentEffect >= numEffects) currentEffect = 0; // loop to start of effect list
     effectInit = false; // trigger effect initialization when new effect is selected
@@ -132,13 +170,21 @@ void loop()
   // run the currently selected effect every effectDelay milliseconds
   if (currentMillis - effectMillis > effectDelay) {
     effectMillis = currentMillis;
-    effectList[currentEffect](); // run the selected effect function
+    if (specialEffect) {
+      specialList[currentSong][currentEffect](); // run the selected effect function
+    } else {
+      songList[currentSong][currentEffect](); // run the selected effect function
+    }
     random16_add_entropy(1); // make the random values a bit more random-ish
   }
   
   // run a fade effect too if the confetti effect is running
-  if (effectList[currentEffect] == confetti) fadeAll(1);
+  if (
+    specialEffect && specialList[currentSong][currentEffect] == confetti ||
+    !specialEffect && songList[currentSong][currentEffect] == confetti
+  ) {
+    fadeAll(1);
+  }
       
   FastLED.show(); // send the contents of the led memory to the LEDs
-
 }

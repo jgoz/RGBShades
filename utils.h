@@ -7,14 +7,14 @@ unsigned long cycleMillis = 0; // store the time of last effect change
 unsigned long currentMillis; // store current loop's millis value
 unsigned long hueMillis; // store time of last hue change
 
+byte currentSong = 0; // index to the currently running song
 byte currentEffect = 0; // index to the currently running effect
-boolean autoCycle = false; // flag for automatic effect changes
+boolean specialEffect = false; // use special effect list?
 
 CRGBPalette16 currentPalette(RainbowColors_p); // global pallete storage
 
 
 typedef void (*functionList)(); // definition for list of effect function pointers
-#define numEffects (sizeof(effectList) / sizeof(effectList[0]))
 
 
 // Increment the global hue value for functions that use it
@@ -116,7 +116,7 @@ void drawMeter(int step){
 // Interrupt normal operation to indicate that auto cycle mode has changed
 void confirmBlink() {
 
-  if (autoCycle) { // one blue blink, auto mode active
+  if (specialEffect) { // one blue blink, auto mode active
     fillAll(CRGB::DarkBlue);
     FastLED.show();
     FastLED.delay(200);

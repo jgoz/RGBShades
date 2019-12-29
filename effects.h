@@ -381,18 +381,6 @@ void scrollText(byte message, byte style, CRGB fgColor, CRGB bgColor) {
 }
 
 
-void scrollTextZero() {
-  scrollText(0, NORMAL, CRGB::Red, CRGB::Black);
-}
-
-void scrollTextOne() {
-  scrollText(1, RAINBOW, 0, CRGB::Black);
-}
-
-void scrollTextTwo() {
-  scrollText(2, NORMAL, CRGB::Green, CRGB(0,0,8));
-}
-
 void graphicsFrame(int frame, CRGB fgColor,CRGB bgColor){
   // Buffers for graphics generation
   byte GlassesBits[kMatrixWidth][kMatrixHeight] = {{0}};    // 24 column x 8 row bit arrays (on/off frame)
@@ -460,4 +448,12 @@ void diamonds(){
   CRGB fgColor = CHSV(cycleHue, 255, 255); 
   //CRGB bgColor = CHSV(cycleHue+128, 255, 255); 
   graphicsFrame(frameSeq[frameIndex],fgColor,CRGB::Black);
+}
+
+void moneyText() {
+  scrollText(0, RAINBOW, 0, CRGB(0,2,0));
+}
+
+void loveText() {
+  scrollText(1, RAINBOW, 0, CRGB(2,0,0));
 }
