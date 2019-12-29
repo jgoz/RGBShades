@@ -415,7 +415,7 @@ void eyesAnim(){
   static byte frameSeq[] = {0,2,1,2,0,2,3,2,3,2};
   static byte frameIndex = 0;
   static unsigned long lastFrame=0;
-  const byte frameDelay=500;
+  const long frameDelay=500;
 
   // startup tasks
   if (effectInit == false) {

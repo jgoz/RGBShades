@@ -142,8 +142,3 @@ void loop()
   FastLED.show(); // send the contents of the led memory to the LEDs
 
 }
-
-
-
-
-
