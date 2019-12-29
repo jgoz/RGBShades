@@ -417,8 +417,9 @@ void graphicsFrame(int frame, CRGB fgColor,CRGB bgColor){
 void eyesAnim(){
   static byte frameSeq[] = {0,2,1,2,0,2,3,2,3,2};
   static byte frameIndex = 0;
-  static unsigned long lastFrame=0;
-  const long frameDelay=500;
+  static unsigned long lastFrame = 0;
+  const long frameDelay = 500;
+  const int maxFrame = sizeof(frameSeq) / sizeof(frameSeq[0]);
 
   // startup tasks
   if (effectInit == false) {
@@ -428,7 +429,31 @@ void eyesAnim(){
 
   if (millis() > lastFrame+frameDelay) {
     frameIndex++;
-    frameIndex=frameIndex%10;
+    frameIndex=frameIndex % maxFrame;
+    lastFrame=millis();
+  }
+
+  CRGB fgColor = CHSV(cycleHue, 255, 255); 
+  //CRGB bgColor = CHSV(cycleHue+128, 255, 255); 
+  graphicsFrame(frameSeq[frameIndex],fgColor,CRGB::Black);
+}
+
+void diamonds(){
+  static byte frameSeq[] = {4,5,6,7,8,9,10,11};
+  static byte frameIndex = 0;
+  static unsigned long lastFrame = 0;
+  const long frameDelay = 200;
+  const int maxFrame = sizeof(frameSeq) / sizeof(frameSeq[0]);
+
+  // startup tasks
+  if (effectInit == false) {
+    effectInit = true;
+    effectDelay = 5;
+  }
+
+  if (millis() > lastFrame+frameDelay) {
+    frameIndex++;
+    frameIndex=frameIndex % maxFrame;
     lastFrame=millis();
   }
 
