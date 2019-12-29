@@ -96,10 +96,10 @@ functionList specialList[][numEffects] = {
   {
     hnyText,
     confetti,
-    yearText,
+    twentyBlink,
     glitter,
     hnyText,
-    plasma
+    twentyBlink
   }
 };
 

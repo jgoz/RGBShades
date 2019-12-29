@@ -449,6 +449,30 @@ void diamonds(){
   graphicsFrame(frameSeq[frameIndex],fgColor,CRGB::Black);
 }
 
+void twentyBlink(){
+  static byte frameSeq[] = {16,17};
+  static byte frameIndex = 0;
+  static unsigned long lastFrame = 0;
+  const long frameDelay = 400;
+  const int maxFrame = sizeof(frameSeq) / sizeof(frameSeq[0]);
+
+  // startup tasks
+  if (effectInit == false) {
+    effectInit = true;
+    effectDelay = 5;
+  }
+
+  if (millis() > lastFrame+frameDelay) {
+    frameIndex++;
+    frameIndex=frameIndex % maxFrame;
+    lastFrame=millis();
+  }
+
+  CRGB fgColor = CHSV(cycleHue, 255, 255); 
+  //CRGB bgColor = CHSV(cycleHue+128, 255, 255); 
+  graphicsFrame(frameSeq[frameIndex],fgColor,CRGB::Black);
+}
+
 void moneyText() {
   scrollText(0, RAINBOW, 0, CRGB(0,2,0));
 }
@@ -459,8 +483,4 @@ void loveText() {
 
 void hnyText() {
   scrollText(2, RAINBOW, 0, CRGB::Black);
-}
-
-void yearText() {
-  scrollText(3, RAINBOW, 0, CRGB::Black);
 }
